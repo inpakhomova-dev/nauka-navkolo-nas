@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Операція: «Наука навколо нас». Справа №1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto+Slab:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--kraft:#d3b283;--kraft2:#c09a63;--paper:#f6ecd2;--grid:rgba(160,130,80,.18);--ink:#36404e;--yellow:#f2c230;--stamp:#c0392b;--ok:#2f7d4f;--card:#fffaf0;
+ --blue:#5b7fa6;--red:#d9605a;--green:#6a9a4a;--orange:#e0a03a;--shadow:rgba(60,40,10,.35);
+ --slab:'Roboto Slab','Rockwell',Georgia,serif;--sans:'Montserrat','Segoe UI',Arial,sans-serif;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--kraft:#5a4630;--kraft2:#46361f;--paper:#2f2b22;--grid:rgba(255,230,160,.08);--ink:#f1e8d0;--card:#3a3529;--shadow:rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--kraft:#5a4630;--kraft2:#46361f;--paper:#2f2b22;--grid:rgba(255,230,160,.08);--ink:#f1e8d0;--card:#3a3529;--shadow:rgba(0,0,0,.6)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 30% 10%,var(--kraft),var(--kraft2));color:var(--ink);font-family:var(--sans);font-weight:500;font-size:18px;line-height:1.5;display:flex;justify-content:center;padding:14px 10px 86px}
+#book{width:100%;max-width:960px}
+.slide{display:none;position:relative;overflow:hidden;background:var(--paper);border-radius:10px;padding:30px 28px;min-height:540px;box-shadow:0 12px 28px var(--shadow);
+ background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px}
+.slide.on{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.slide.cover{background:linear-gradient(160deg,var(--kraft),var(--kraft2));text-align:center;display:none}
+.slide.cover.on{display:flex;flex-direction:column;justify-content:center;align-items:center}
+h1,h2,h3{font-family:var(--slab);font-weight:800;margin:0 0 12px;line-height:1.1}
+h1{font-size:clamp(2.2rem,7vw,4rem);color:var(--yellow);text-shadow:2px 2px 0 rgba(54,64,78,.55)}
+h2{font-size:clamp(1.7rem,4.6vw,2.6rem)}
+.sub{font-size:1.25rem;font-weight:700;opacity:.85}
+.ribbon{position:relative;display:inline-block;background:var(--yellow);color:#2b2b2b;font-family:var(--slab);font-weight:800;padding:10px 26px;transform:rotate(-1.5deg);box-shadow:0 4px 8px var(--shadow)}
+.ribbon::before,.ribbon::after{content:"";position:absolute;top:-8px;width:56px;height:20px;background:rgba(255,255,255,.55);transform:rotate(-8deg)}
+.ribbon::before{left:-18px}.ribbon::after{right:-18px;transform:rotate(8deg)}
+.stamp{display:inline-block;border:4px double var(--stamp);color:var(--stamp);font-family:var(--slab);font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:8px;transform:rotate(-9deg);mix-blend-mode:multiply;opacity:.88;font-size:1.3rem}
+.stamp.ok{border-color:var(--ok);color:var(--ok)}
+.slide.on .stamp{animation:thump .45s .25s both cubic-bezier(.2,1.6,.4,1)}
+@keyframes thump{from{opacity:0;transform:scale(2.2) rotate(-2deg)}to{opacity:.88;transform:rotate(-9deg)}}
+.corner{position:absolute;right:18px;top:14px}
+.check li{list-style:none;position:relative;padding-left:44px;margin:16px 0}
+.check li::before{content:"✔";position:absolute;left:0;top:-4px;font-size:1.8rem;color:var(--yellow);text-shadow:0 0 0 #b8860b,1px 1px 0 #b8860b}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:14px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:12px;overflow:hidden;text-align:left}
+.card>h3{margin:0;padding:6px 12px;color:#fff;font-size:1.2rem;text-align:center;background:var(--blue)}
+.card.r>h3{background:var(--red)}.card.g>h3{background:var(--green)}.card.o>h3{background:var(--orange)}
+.card .b{padding:12px 14px}.card em{display:block;margin-top:6px}
+.scene{position:relative;display:block;width:100%;aspect-ratio:16/9;background:#8a7a5a center/cover no-repeat;border-radius:8px;overflow:hidden}
+.scene img{width:100%;height:100%;object-fit:cover;display:block}
+.scene .ribbon{position:absolute;left:-2%;right:-2%;bottom:14%;text-align:center;display:block;font-size:clamp(.95rem,2.6vw,1.5rem)}
+.spot{position:absolute;border-radius:50%;cursor:pointer;border:3px dashed rgba(242,194,48,.0);animation:pulse 1.8s infinite;-webkit-tap-highlight-color:transparent}
+.spot.got{animation:none;border:4px solid var(--yellow);box-shadow:0 0 16px 6px rgba(242,194,48,.8),inset 0 0 12px rgba(242,194,48,.7)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,194,48,.0)}50%{box-shadow:0 0 0 8px rgba(242,194,48,.55)}}
+.evidence{margin-top:12px}
+.evidence .card{display:none;margin:8px 0}.evidence .card.show{display:block;animation:in .3s}
+.counter{font-family:var(--slab);font-weight:700;margin-top:10px}
+.btn{font:inherit;font-weight:700;min-height:44px;padding:6px 20px;border:2px solid var(--ink);border-radius:10px;background:var(--yellow);color:#2b2b2b;cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.hidden{display:none}
+.proof{display:flex;gap:14px;align-items:flex-start;margin:12px 0;padding:12px;background:var(--card);border:2px solid var(--ink);border-radius:12px}
+.proof .tab{font-family:var(--slab);font-weight:800;min-width:78px;text-align:center;background:var(--yellow);border-radius:8px;padding:4px 8px}
+.proof b{color:var(--stamp)}
+.quiz .q{margin:16px 0 6px}.quiz .opts{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.quiz .ok{background:var(--ok);color:#fff}.quiz .no{background:#e9d6d3;text-decoration:line-through;opacity:.8}
+.fb{font-weight:700;min-height:1.6em;margin-top:6px}
+.polaroids{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin:14px 0}
+.pol{background:#fff;padding:8px 8px 24px;box-shadow:0 4px 10px var(--shadow);transform:rotate(-3deg);position:relative}
+.pol:nth-child(even){transform:rotate(3deg)}.pol img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#b9a37a}
+.pol::before{content:"";position:absolute;top:-10px;left:35%;width:56px;height:18px;background:rgba(242,194,48,.7);transform:rotate(-5deg)}
+.verdict{background:var(--card);border:3px solid #c9a56f;border-radius:14px;padding:18px 22px;text-align:center;font-weight:600}
+.sort{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:14px}
+.sort .card .b{text-align:center}
+.sort .pick{min-height:44px;width:100%}
+.sort .card.sel{outline:4px solid var(--yellow)}
+.sort .note{display:none;margin-top:8px;font-size:.95rem}.sort .card.sel .note{display:block}
+.deco{position:absolute;opacity:.16;pointer-events:none;font-size:5rem;line-height:1}
+.deco.a{left:10px;bottom:6px}.deco.b{right:12px;bottom:4px}
+#nav{position:fixed;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;align-items:center;gap:14px;background:linear-gradient(transparent,rgba(60,40,10,.55))}
+#dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:60vw}#dots i{width:10px;height:10px;border-radius:50%;background:var(--paper);opacity:.45}#dots i.on{opacity:1;background:var(--yellow)}
+@media (max-width:600px){.slide{padding:22px 14px}body{font-size:17px}.proof{flex-direction:column}}
+
+@media (max-width:600px){body{font-size:18px}}
+.tag{display:inline-block;background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:2px 12px;font-size:1rem;font-weight:700;margin-bottom:8px}
+.safe{margin-top:14px;padding:10px 14px;border-left:6px solid var(--stamp);background:var(--card);border-radius:8px;font-weight:700}
+.rule{margin:14px 0}
+.vid{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:14px 0;padding:14px;background:var(--card);border:2px solid var(--ink);border-radius:12px}
+.poster{position:relative;flex:0 0 240px;aspect-ratio:16/9;background:#36404e;border:3px solid var(--yellow);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f6ecd2;text-align:center;font-family:var(--slab);font-weight:800;padding:8px;font-size:1.05rem}
+.poster .play{width:52px;height:52px;border-radius:50%;background:var(--yellow);color:#2b2b2b;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:6px}
+.vid a.btn{text-decoration:none;display:inline-flex;align-items:center}
+.vid .info{flex:1 1 220px}
+.sort .note{font-size:1rem}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.chip{font:inherit;font-weight:700;min-height:44px;padding:4px 18px;border:2px solid var(--ink);border-radius:22px;background:var(--card);color:var(--ink);cursor:pointer}
+.chip.sel{background:var(--ok);color:#fff}
+.steps{counter-reset:s;padding:0;margin:10px 0}.steps li{list-style:none;counter-increment:s;position:relative;padding-left:48px;margin:10px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:36px;height:36px;border-radius:50%;background:var(--yellow);color:#2b2b2b;font-family:var(--slab);font-weight:800;display:flex;align-items:center;justify-content:center}
+.cap{font-size:1rem;margin:6px 0 0;opacity:.85}
+.mat{font-weight:700}
+</style>
+</head>
+<body>
+<main id="book">
+<section class="slide cover" id="s1">
+  <span class="stamp corner">Top secret</span>
+  <h1>Операція:<br>«Наука навколо нас»</h1>
+  <p class="ribbon" style="font-size:1.5rem">Справа №1: Балансуючий герб</p>
+  <p class="sub">Секретні матеріали для юних детективів</p>
+  <span class="deco a">🔍</span><span class="deco b">🧩</span>
+</section>
+
+<section class="slide" id="s2">
+  <span class="tag">⏱ 3 хв · Етап 1</span>
+  <h2>Ваша місія, юні детективи…</h2>
+  <ul class="check">
+    <li>Дослідити незвичайний герб України, який тримається вертикально.</li>
+    <li>Знайти секрет його рівноваги й перевірити його власним дослідом.</li>
+    <li>Згадати про День Гідності та Свободи: що допомагає людям триматися?</li>
+  </ul>
+  <p class="ribbon">Що допомагає людині не здаватися у складних ситуаціях?</p>
+  <p><b>Чи готові ви прийняти виклик?</b></p>
+  <span class="stamp">Завдання<br>прийнято</span>
+</section>
+
+<section class="slide" id="s3">
+  <span class="tag">⏱ 5 хв · Етап 2</span>
+  <h2>Справа №1: Неможливе можливо?</h2>
+  <p class="ribbon">Агенти, уважно огляньте місце події!</p>
+  <div class="vid"><a class="poster" href="https://youtu.be/FSuEpbII3UA" target="_blank" rel="noopener" aria-label="Дивитись на YouTube"><span class="play">▶</span>Секретне відео: «Неможливе можливо?»</a>
+ <div class="info"><b>Секретне відео: «Неможливе можливо?»</b><br>Канал «Ірина Пахомова: Сучасні освітні технології»<br><br><a class="btn" href="https://youtu.be/FSuEpbII3UA" target="_blank" rel="noopener">Дивитись на YouTube</a></div></div>
+  <p><b>Після перегляду, агенти:</b> що допомагає гербу зберігати рівновагу? Висловіть припущення, учитель запише їх на дошці.</p>
+  <p class="mat">Проблемне запитання: як розташувати вантажі, щоб герб міг утримуватися вертикально?</p>
+</section>
+
+<section class="slide" id="s4" data-find>
+  <span class="tag">🔎 Аналіз доказів</span>
+  <h2>Де ховаються докази?</h2>
+  <div class="scene"><svg viewBox="0 0 800 450" role="img" aria-label="Схема: герб із двома шпажками та пластиліновими кульками тримається на вістрі олівця" style="width:100%;height:100%;display:block">
+<defs><pattern id="g" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="#a08250" stroke-opacity=".25"/></pattern></defs>
+<rect width="800" height="450" fill="#f1e6c6"/><rect width="800" height="450" fill="url(#g)"/>
+<line x1="300" y1="170" x2="215" y2="335" stroke="#8b6b3d" stroke-width="6"/><line x1="500" y1="170" x2="585" y2="335" stroke="#8b6b3d" stroke-width="6"/>
+<circle cx="215" cy="345" r="30" fill="#d9605a" stroke="#36404e" stroke-width="4"/><circle cx="585" cy="345" r="30" fill="#d9605a" stroke="#36404e" stroke-width="4"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M300 80V170Q300 215 400 215Q500 215 500 170V80M400 50V215" stroke="#36404e" stroke-width="22"/><path d="M300 80V170Q300 215 400 215Q500 215 500 170V80M400 50V215" stroke="#f2c230" stroke-width="12"/></g>
+<polygon points="400,222 387,262 413,262" fill="#e8c48f" stroke="#36404e" stroke-width="3"/><polygon points="400,248 394,262 406,262" fill="#36404e"/><rect x="387" y="262" width="26" height="150" fill="#5b7fa6" stroke="#36404e" stroke-width="3"/>
+</svg>
+    <span class="spot" data-card="e1" style="left:21%;top:65%;width:11.25%;height:20%"></span>
+    <span class="spot" data-card="e2" style="left:41%;top:9%;width:17.5%;height:40%"></span>
+    <span class="spot" data-card="e3" style="left:45.6%;top:46.7%;width:8.75%;height:15.5%"></span></div>
+  <p class="cap">Схематична ілюстрація (без фото). Натискайте на пульсуючі зони.</p>
+  <p class="counter" aria-live="polite">Знайдено доказів: <span data-count>0</span> з <span data-total>3</span></p>
+  <div class="evidence">
+    <div class="card" id="e1"><h3>Доказ А: вантажі</h3><div class="b">Пластилінові кульки на кінцях шпажок. Питання: важить лише їхня вага — чи ще й те, <b>де</b> вони стоять?</div></div>
+    <div class="card r" id="e2"><h3>Доказ Б: уся конструкція</h3><div class="b">Герб, шпажки й кульки — це одна конструкція. Питання: де в ній <b>центр мас</b>?</div></div>
+    <div class="card g" id="e3"><h3>Доказ В: точка опори</h3><div class="b">Місце, на якому тримається модель. Питання: вище чи нижче неї розташовані вантажі?</div></div>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <span class="tag">⏱ 5 хв · Етап 3</span>
+  <span class="stamp corner">Case closed</span>
+  <h2 class="ribbon">Секрет розкрито!</h2>
+  <p>Спробуйте втримати олівець на пальці. Легко? Тепер дізнаймося чому.</p>
+  <button class="btn" data-reveal style="display:block;margin:12px 0">Покажи пояснення</button>
+  <div class="hidden" data-shown>
+    <div class="proof"><span class="tab">Доказ А</span><div><b>Не лише вага.</b> Рівновага залежить не тільки від того, наскільки важкі вантажі, а й від того, <b>де вони розташовані</b> та як влаштована вся конструкція.</div></div>
+    <div class="proof"><span class="tab">Доказ Б</span><div><b>Центр мас.</b> Це умовна точка, у якій ніби зосереджена <b>вся маса</b> предмета. Вантажі змінюють її положення.</div></div>
+    <div class="proof"><span class="tab">Доказ В</span><div><b>Стійка рівновага.</b> Якщо центр ваги лежить <b>нижче точки опори</b> і займає найнижче можливе положення, то після відхилення з’являються сили, які <b>повертають</b> тіло назад.</div></div>
+  </div>
+  <div class="vid"><a class="poster" href="https://youtu.be/1FhXd187hSY" target="_blank" rel="noopener" aria-label="Дивитись на YouTube"><span class="play">▶</span>Секретне відео: «Секрет рівноваги»</a>
+ <div class="info"><b>Секретне відео: «Секрет рівноваги»</b><br>Канал «Ірина Пахомова: Сучасні освітні технології»<br><br><a class="btn" href="https://youtu.be/1FhXd187hSY" target="_blank" rel="noopener">Дивитись на YouTube</a></div></div>
+  <p><b>Після перегляду:</b> де в нашій моделі центр ваги — вище чи нижче точки опори?</p>
+  <p class="mat">Ми не віримо на слово. Ми перевіряємо дослідом!</p>
+</section>
+
+<section class="slide" id="s6">
+  <span class="tag">⏱ 12 хв · Етап 4</span>
+  <h2>Інженерна майстерня: «Створи свій герб»</h2>
+  <p class="mat">Потрібно: картон, 2 шаблони тризуба, степлер, 2 шпажки, пластилін, клейка стрічка.</p>
+  <ol class="steps">
+    <li>Виріж два однакові шаблони тризуба з картону. Скріпи степлером.</li>
+    <li>Розмісти між ними дві шпажки за зразком учителя.</li>
+    <li>Надійно закріпи шпажки між картонними деталями.</li>
+    <li>Зроби дві пластилінові кульки приблизно однакової маси.</li>
+    <li>Закріпи кульки на кінцях шпажок.</li>
+    <li>Перевір, чи тримається модель на точці опори.</li>
+  </ol>
+  <p class="safe">🛡 Безпека: степлер, ножиці та шпажки — лише з дорослим або під наглядом учителя. Шпажки не спрямовуй на інших.</p>
+  <span class="stamp" style="margin-top:12px">Інженери<br>на місці</span>
+</section>
+
+<section class="slide" id="s7">
+  <span class="tag">⏱ 8 хв · Етап 5</span>
+  <h2>Лабораторія: «Знайди секрет!»</h2>
+  <p class="ribbon">Спочатку запиши прогноз. Потім перевір!</p>
+  <div class="cards">
+    <div class="card"><h3>Дослід 1: маса</h3><div class="b">Порівняй модель з двома однаковими кульками та модель, де одна кулька більша.<em>Що змінилося? Прогноз до досліду.</em></div></div>
+    <div class="card r"><h3>Дослід 2: відстань</h3><div class="b">Якщо конструкція дозволяє, безпечно зміни положення шпажок. Порівняй два варіанти.<em>Що спостерігаєш? Прогноз до досліду.</em></div></div>
+    <div class="card g"><h3>Дослід 3: повернення</h3><div class="b">Обережно відхили модель на невеликий кут і відпусти. Подуй на верхній кут. Пошукай інші точки опори.<em>Що зробить герб? Прогноз до досліду.</em></div></div>
+  </div>
+  <p class="rule"><b>Правило дослідника:</b> змінюй лише один параметр за раз.</p>
+  <p class="safe">🛡 Безпека: працюйте обережно в парах. Дуйте на модель легко. Ножиці та степлер — лише з дорослим.</p>
+</section>
+
+<section class="slide quiz" id="s8">
+  <span class="tag">🕵 Допит свідків</span>
+  <h2>Допит свідків</h2>
+  <div class="q" data-answer="1"><b>1.</b> Від чого залежить рівновага нашого герба?
+    <div class="opts"><button class="btn">Лише від розміру картону</button><button class="btn">Від розташування вантажів і всієї конструкції</button><button class="btn">Від кольору пластиліну</button></div>
+    <div class="fb" data-ok="Свідок каже правду! Так тримати, агенте!" data-no="Підказка: згадайте, де стояли вантажі."></div></div>
+  <div class="q" data-answer="0"><b>2.</b> Яке правило дослідника ми знаємо?
+    <div class="opts"><button class="btn">Змінювати лише один параметр за раз</button><button class="btn">Змінювати все одразу</button><button class="btn">Нічого не перевіряти</button></div>
+    <div class="fb" data-ok="Точно! Так результат зрозумілий." data-no="Підказка: що буде, якщо змінити все одразу?"></div></div>
+  <div class="q" data-answer="2"><b>3.</b> Коли рівновага стійка?
+    <div class="opts"><button class="btn">Коли центр ваги вище опори</button><button class="btn">Коли про нього не думати</button><button class="btn">Коли центр ваги нижче точки опори</button></div>
+    <div class="fb" data-ok="Свідок каже правду! Центр ваги нижче опори." data-no="Підказка: де розташований центр ваги нашої моделі?"></div></div>
+</section>
+
+<section class="slide" id="s9">
+  <span class="tag">⏱ 5 + 4 хв · Етапи 6–7</span>
+  <h2>Звіт за місією</h2>
+  <p class="ribbon">Я припускав(ла), що… Я помітив(ла), що… Тепер я розумію, що…</p>
+  <div class="sort">
+    <div class="card g"><h3>🎒 Рюкзак</h3><div class="b"><b>Що найцінніше беру з собою?</b><button class="btn pick">Обираю</button><div class="note">Найважливіші ідеї, які знадобляться далі.</div></div></div>
+    <div class="card"><h3>⚙️ М’ясорубка</h3><div class="b"><b>Що треба ще обдумати?</b><button class="btn pick">Обираю</button><div class="note">Цікаві запитання для нового дослідження.</div></div></div>
+    <div class="card r"><h3>🗑️ Кошик</h3><div class="b"><b>Що було несуттєвим?</b><button class="btn pick">Обираю</button><div class="note">Це теж нормально!</div></div></div>
+  </div>
+  <p class="mat" style="margin-top:16px">Моя точка опори — це…</p>
+  <div class="chips"><button class="chip">родина</button><button class="chip">друзі</button><button class="chip">знання</button><button class="chip">взаємодопомога</button><button class="chip">віра в себе</button></div>
+</section>
+
+<section class="slide" id="s10">
+  <h2>Місію виконано. Але розслідування триває!</h2>
+  <p>Вітаємо, агенти! Ви знайшли секрет рівноваги. Для конструкції важливе правильне розташування її частин. А людям допомагають триматися гідність, свобода, взаємопідтримка та віра у власні сили.</p>
+  <p class="ribbon">Справа №2: яка таємниця чекає на нас?</p>
+  <p></p>
+  <span class="stamp ok">Місію<br>виконано</span>
+</section>
+</main>
+<nav id="nav"><button class="btn" id="prev" aria-label="Назад">←</button><div id="dots"></div><button class="btn" id="next" aria-label="Вперед">→</button></nav>
+<script>
+(function(){
+var S=[].slice.call(document.querySelectorAll('.slide')),i=0,dots=document.getElementById('dots');
+S.forEach(function(){dots.appendChild(document.createElement('i'))});
+function show(n,skip){i=Math.max(0,Math.min(S.length-1,n));
+ S.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ [].forEach.call(dots.children,function(d,k){d.classList.toggle('on',k===i)});
+ if(!skip){try{history.replaceState(null,'','#s'+(i+1))}catch(e){}} window.scrollTo(0,0)}
+function fromHash(){var m=/^#s(\d+)$/.exec(location.hash);show(m?+m[1]-1:0,true)}
+document.getElementById('prev').onclick=function(){show(i-1)};
+document.getElementById('next').onclick=function(){show(i+1)};
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+var x0=null;document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>70)show(i+(d<0?1:-1));x0=null});
+window.addEventListener('hashchange',fromHash);
+// Покажи пояснення
+[].forEach.call(document.querySelectorAll('[data-reveal]'),function(b){b.onclick=function(){b.nextElementSibling.classList.remove('hidden');b.classList.add('hidden')}});
+// Квіз
+[].forEach.call(document.querySelectorAll('.q[data-answer]'),function(q){var a=+q.dataset.answer,fb=q.querySelector('.fb');
+ [].forEach.call(q.querySelectorAll('.opts .btn'),function(b,k){b.onclick=function(){
+  if(k===a){b.classList.add('ok');fb.textContent=fb.dataset.ok}else{b.classList.add('no');fb.textContent=fb.dataset.no}}})});
+// Аналіз доказів
+[].forEach.call(document.querySelectorAll('[data-find]'),function(sec){var spots=sec.querySelectorAll('.spot'),n=0;
+ sec.querySelector('[data-total]').textContent=spots.length;
+ [].forEach.call(spots,function(s){s.onclick=function(){if(s.classList.contains('got'))return;s.classList.add('got');n++;
+  sec.querySelector('[data-count]').textContent=n;var c=sec.querySelector('#'+s.dataset.card);if(c)c.classList.add('show');
+  if(n===spots.length)sec.querySelector('.counter').textContent='Усі докази зібрано! Справа готова до розкриття.'}})});
+// Звіт-сортування
+[].forEach.call(document.querySelectorAll('.sort .pick'),function(b){b.onclick=function(){b.closest('.card').classList.toggle('sel')}});
+[].forEach.call(document.querySelectorAll('.chip'),function(b){b.onclick=function(){b.classList.toggle('sel')}});
+fromHash();
+})();
+</script>
+</body>
+</html>
